@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- PARAMETERS FOR ARMA 3
+  Source: https://community.bistudio.com/wiki/Arma_3:_Startup_Parameters
+-->
+<Parameters>
+    <!-- Profile Options -->
+    <Parameter Name="Name" Active="true" Key="-name=" Value="" />
+    <Parameter Name="Profiles" Active="true" Key="-profiles=" Value="" />
+    <Parameter Name="Unit" Active="true" Key="-unit=" Value="" />
+    <!-- Game Loading Speedup -->
+    <Parameter Name="Window" Active="true" Key="-window" Value="null" />
+    <Parameter Name="PosX" Active="true" Key="-posX=" Value="" />
+    <Parameter Name="PosY" Active="true" Key="-posY=" Value="" />
+    <Parameter Name="Adapter" Active="true" Key="-adapter=" Value="" />
+    <Parameter Name="NoSplash" Active="true" Key="-noSlash" Value="null" />
+    <Parameter Name="World" Active="true" Key="-world=" Value="" />
+    <Parameter Name="WorldCfg" Active="true" Key="-worldCfg=" Value="" />
+    <Parameter Name="SkipIntro" Active="true" Key="-skipIntro" Value="null" />
+    <!-- Performance -->
+    <Parameter Name="MaxMem" Active="true" Key="-maxMem=" Value="" />
+    <Parameter Name="MaxVRAM" Active="true" Key="-maxVRAM=" Value="" />
+    <Parameter Name="NoCB" Active="true" Key="-noCB" Value="null" />
+    <Parameter Name="CpuCount" Active="true" Key="-cpuCount=" Value="" />
+    <Parameter Name="ExThreads" Active="true" Key="-exThreads=" Value="" />
+    <Parameter Name="Malloc" Active="true" Key="-malloc=" Value="" />
+    <Parameter Name="NoLogs" Active="true" Key="-noLogs" Value="null" />
+    <Parameter Name="EnableHT" Active="true" Key="-enableHT" Value="null" />
+    <Parameter Name="HugePages" Active="true" Key="-hugepages" Value="null" />
+    <!-- Developer Options
+    <Parameter Name="NoPause" Active="true" Key="-noPause" Value="null" />
+    <Parameter Name="ShowScriptErrors" Active="true" Key="-showScriptErrors" Value="null" />
+    <Parameter Name="Debug" Active="true" Key="-debug" Value="null" />
+    <Parameter Name="NoLogs" Active="true" Key="-noLogs" Value="null" />
+    <Parameter Name="FilePatching" Active="true" Key="-filePatching" Value="null" />
+    <Parameter Name="Init" Active="true" Key="-init=" Value="" />
+    <Parameter Name="Autotest" Active="true" Key="-autotest" Value="null" />
+    <Parameter Name="Beta" Active="true" Key="-beta=" Value="" />
+    <Parameter Name="CheckSignatures" Active="true" Key="-checkSignatures" Value="null" />
+    <Parameter Name="D3DNoLock" Active="true" Key="-d3dNoLock" Value="null" />
+    <Parameter Name="D3DNoMultiCB" Active="true" Key="-d3dNoMultiCB" Value="null" />
+    <Parameter Name="CrashDiag" Active="true" Key="-crashDiag" Value="null" />
+    <Parameter Name="DebugCallExtension" Active="true" Key="-debugCallExtension" Value="null" />
+    <Parameter Name="Command" Active="true" Key="-command" Value="null" />
+    <Parameter Name="Language" Active="true" Key="-language=" Value="" />
+    <Parameter Name="Buldozer" Active="true" Key="-buldozer" Value="null" />
+    <Parameter Name="NoLand" Active="true" Key="-noLand" Value="null" />
+    <Parameter Name="NoSound" Active="true" Key="-noSound" Value="null" />
+    <Parameter Name="DoNothing" Active="true" Key="-doNothing" Value="null" />
+    <Parameter Name="Mod" Active="true" Key="-mod=" Value="" />
+    -->
+    <Parameter Name="Connect" Active="true" Key="-connect=" Value="arma3.ravens-regiment.com" />
+    <Parameter Name="Port" Active="true" Key="-port=" Value="3302" />
+    <Parameter Name="Password" Active="true" Key="-password=" Value="zmentopls" />
+    <Parameter Name="Host" Active="true" Key="-host" Value="null" />
+    <!-- Server Options Have Not Been Included. -->
+</Parameters>

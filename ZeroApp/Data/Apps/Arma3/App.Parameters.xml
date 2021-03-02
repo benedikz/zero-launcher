@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<App Name="Arma3">
+  <Parameters>
+    <Parameter Name="World" Active="true" Key="-world=" Value="empty" />
+    <Parameter Name="Name" Active="false" Key="-param=" Value="empty" />
+  </Parameters>
+</App>

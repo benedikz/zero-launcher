@@ -1,0 +1,74 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZeroApp.Windows.Dialogs"
+        xmlns:Lists="clr-namespace:ZeroApp.Controls.Lists" x:Class="ZeroApp.Windows.Dialogs.Dialog_Setup"
+        mc:Ignorable="d"
+        Title="Zero - První spuštění" Height="211.2" Width="450" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid x:Name="Dialog_Headbar" Height="22" VerticalAlignment="Top" Background="Black">
+            <StackPanel x:Name="WindowActionPanel" Orientation="Horizontal" Width="28" HorizontalAlignment="Right">
+                <Button x:Name="Button_ExitDialog" Background="Transparent" Foreground="#FED8D8D8" Width="28" Height="22" BorderBrush="{x:Null}" Click="Button_ExitDialog_Click" VerticalAlignment="Top">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid x:Name="AppExitButtonGrid" Background="Transparent">
+                                <Image Height="12" Width="12" Source="pack://application:,,,/.zeroapp/media/quit.png"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" TargetName="AppExitButtonGrid" Value="#F04747" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <Label Content="Nastavení - Spouštění hry" Foreground="#FF7F7F7F" Width="407" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="10"/>
+        </Grid>
+        <Grid x:Name="Dialog_Content" Margin="0,22,-0.4,0" Background="#141414">
+
+            <TextBox IsReadOnly="True" x:Name="Input_ApplicationLocation" Margin="14,67,70,0" Height="50" Background="#FF4F4F4F" Foreground="#FFC5C5C5" BorderBrush="{x:Null}" Padding="20,17,0,0" VerticalAlignment="Top" IsReadOnlyCaretVisible="True" />
+            <Label Content="Cesta k aplikaci hry:" Foreground="White" Width="154" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0" FontWeight="Bold"/>
+
+            <Button x:Name="Button_Continue" Margin="289,126,10,13.2" Click="Button_Continue_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="AuthLoginButtonGrid" Background="#202020" Cursor="Hand">
+                            <TextBlock x:Name="AuthLoginTextBlock" Text="POKRAČOVAT" Foreground="#FEFEFE"  FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="AuthLoginButtonGrid" Value="#323232" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Foreground" TargetName="AuthLoginTextBlock" Value="#FFF" />
+                                <Setter Property="Background" TargetName="AuthLoginButtonGrid" Value="#FF568058" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="Button_GetDirectory" Margin="385,67,10,72.2" Click="Button_GetDirectory_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="GetDirectoryButtonGrid" Background="#202020" Cursor="Hand">
+                            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Width="32" Height="32" x:Name="GetDirectoryIcon" Source="pack://application:,,,/.zeroapp/media/magnifier.png" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" TargetName="GetDirectoryIcon" Value="0.5" />
+                                <Setter Property="Background" TargetName="GetDirectoryButtonGrid" Value="#323232" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="GetDirectoryButtonGrid" Value="#FF568058" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

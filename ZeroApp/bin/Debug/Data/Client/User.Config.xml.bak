@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Keys xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Key Name="IsSetup" Value="true" />
+  <Key Name="GameDirectory" Value="D:\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" />
+  <Key Name="SavedUsername" Value="" />
+  <Key Name="SavedPassword" Value="" />
+</Keys>

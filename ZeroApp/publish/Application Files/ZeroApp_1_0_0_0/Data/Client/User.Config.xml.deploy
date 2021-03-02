@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Keys>
+  <Key Name="IsSetup" Value="false" />
+  <Key Name="GameDirectory" Value="" />
+  <Key Name="SavedUsername" Value="" />
+  <Key Name="SavedPassword" Value="" />
+</Keys>
