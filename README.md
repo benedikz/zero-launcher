@@ -18,6 +18,7 @@
 
 - [Instalace](#instalace)
 - [Tvorba repozitáře](#tvorba-repozitáře)
+- [ZeroCore](#zerocore)
 
 ### Instalace
 - Stáhněte si nejnovější vydání `Zero Launcher 1.0` na své zařízení. 
@@ -31,6 +32,9 @@
   - Stručný název repozitáře
   - V případě, že chcete aby při spuštění s vaším balíčkem z repozitáře měl uživatel možnost automatického připojení k hernímu serveru, vyplňte zbývající tři pole **AUTOCONNECT**
 - Po úspěšném nastavení `defines.php` zkuste přistoupit k indexovacímu skriptu. Navštivte https://vase-domena/cesta/k/repozitari/indexer.php. Vaše moduly na serveru jsou nyní indexovány. Při jakékoliv manuální změně obsahu adresáře aktualizujte index tím, že k němu přistoupíte přes veřejné URL, případně si nastavte CRON job pro automatické provádění skriptu v časových intervalech.
+
+### ZeroCore
+Veškeré programy jsou obsaženy v projektové složce ZeroCore. V tomto adresáři jsou obsaženy veškeré back-end funkce launcheru spolu s objektovými modely datových celků, s nimiž launcher pracuje.
 
 ### Licence
 Tento projekt je licencovaný pod [GNU General Public License v3.0](https://github.com/benedikz/zero-launcher/blob/main/LICENSE)
