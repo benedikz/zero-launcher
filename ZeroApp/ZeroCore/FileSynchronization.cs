@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -20,24 +21,23 @@ namespace ZeroApp
         /// <returns></returns>
         public string DownloadIndex(string url)
         {
-            // Ošetřit pomocí try catch
-
-            var request = WebRequest.Create(url);
-
-            /*
-            using (var response = webRequest.GetResponse())
-            using (var content = response.GetResponseStream())
-            using (var reader = new StreamReader(content))
+            try
             {
-                var strContent = reader.ReadToEnd();
-                return strContent.ToString();
+                var request = WebRequest.Create(url);
+                request.Timeout = 4680000;
+                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var stream = (Stream)response.GetResponseStream())
+                using (var sr = new StreamReader(stream))
+                {
+                    var content = sr.ReadToEnd();
+                    return content.ToString();
+                }
             }
-            */
-
-            WebResponse response = request.GetResponse();
-            Stream responseStream = response.GetResponseStream();
-            StreamReader sr = new StreamReader(responseStream);
-            return sr.ReadToEnd();
+            catch (Exception e)
+            {
+                Trace.WriteLine("[DownloadIndex] Task Failed :: Exception [" + e + "] thrown");
+                return String.Empty;
+            }
         }
 
         /// <summary>
@@ -47,10 +47,18 @@ namespace ZeroApp
         /// <returns>Unserialized contents of index.xml as string</returns>
         public string ReadIndex(string path)
         {
-            using (var reader = new StreamReader(path))
+            try
             {
-                var content = reader.ReadToEnd();
-                return content.ToString();
+                using (var reader = new StreamReader(path))
+                {
+                    var content = reader.ReadToEnd();
+                    return content.ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine("[ReadIndex] Task Failed :: Exception [" + e + "] thrown");
+                return String.Empty;
             }
         }
 

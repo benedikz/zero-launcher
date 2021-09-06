@@ -9,6 +9,9 @@ using System.IO;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Net.Cache;
+using System.ComponentModel;
+using System.Windows.Threading;
+using System.Windows;
 
 namespace ZeroApp
 {

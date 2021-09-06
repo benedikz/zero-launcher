@@ -8,16 +8,9 @@
              Name="repoListItem"
              d:DesignHeight="60" d:DesignWidth="360">
     <Grid>
-        <Button>
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid>
-                        <Image Width="48" Height="48" Margin="6,0" HorizontalAlignment="Left" Source="{Binding R_Miniature,ElementName=repoListItem}" />
-                        <TextBlock TextTrimming="WordEllipsis" Text="{Binding R_Name, ElementName=repoListItem}"  Width="291" Height="19" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold" Margin="69,13,0,28"></TextBlock>
-                        <TextBlock TextTrimming="WordEllipsis" Text="{Binding R_Source, ElementName=repoListItem}"  Width="290" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#ABABAB" Margin="69,30,0,0" />
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+        <Grid>
+            <Image Width="48" Height="48" Margin="6,0" HorizontalAlignment="Left" Source="{Binding R_Miniature,ElementName=repoListItem}" />
+            <Label Content="{Binding R_Name, ElementName=repoListItem}" ToolTip="{Binding R_Name, ElementName=repoListItem}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="291" HorizontalAlignment="Left" Foreground="White" FontWeight="Bold" Margin="69,13,0,13"/>
+        </Grid>
     </Grid>
 </UserControl>

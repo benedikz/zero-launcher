@@ -4,9 +4,8 @@
     <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.7.2" />
   </startup>
   <appSettings>
-    <add key="ApplicationVersionHex" value="312e30342e313731313230" />
-    <add key="IsSetup" value="false" />
     <add key="URL_API" value="https://benedikz.space/api/zeroapp/client/" />
+    <add key="ApplicationVersionHex" value="312e30342e313731313230" />
     <add key="ClientSettingsProvider.ServiceUri" value="" />
   </appSettings>
   <system.web>

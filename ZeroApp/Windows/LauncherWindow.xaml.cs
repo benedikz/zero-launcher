@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using ZeroApp.Controls.Lists;
 using ZeroApp.Windows.Dialogs;
 using ZeroApp.ZeroCore;
@@ -33,6 +35,8 @@ namespace ZeroApp
 
         public static bool isAuthenticated = false;
 
+        //public static int currProgress = 0;
+
         // Observable Collections (Collections of UserControls in Lists)
         public ObservableCollection<ZeroApp.Controls.Lists.RepositoryListItem> Repos { get; set; }
         public ObservableCollection<ZeroApp.Controls.Lists.ModListItem> Mods { get; set; }
@@ -44,7 +48,7 @@ namespace ZeroApp
         List<RepositoryObjectModel.Repository> repos = new List<RepositoryObjectModel.Repository>();
 
         // Timestamp (STARTUP)
-        readonly Int32 startupTimestamp = (Int32)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+        readonly static Int32 startupTimestamp = (Int32)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
 
         public LauncherWindow()
         {
@@ -52,10 +56,13 @@ namespace ZeroApp
         }
 
         private void AppWindow_Loaded(object sender, RoutedEventArgs e)
-        {
+        {   
+            // Initialize Trace Listener
+            Trace.Listeners.Add(new TextWriterTraceListener(".logs/zeroapp.log"));
+
             // Start Discord Rich Presence
             RPCManager.Initialize("638122033632509973");
-            RPCManager.UpdatePresence("Raven Edition", "Running the launcher", startupTimestamp, 0, "infisync", "", "test", "");
+            RPCManager.UpdatePresence("Maturita Edition", "Je v launcheru", startupTimestamp, 0, "infisync", "a", "test", "b");
 
             // Initialize Repositories List & Parameters List
             var uc_Handler = new UserConfig();
@@ -88,22 +95,43 @@ namespace ZeroApp
                 setupDialog.Owner = GetWindow(this);
                 setupDialog.ShowDialog();
             }
-        }
 
-        private void AppMaximizeButton_Click(object sender, RoutedEventArgs e)
+            // Process Timer
+            System.Timers.Timer p_Timer = new System.Timers.Timer();
+            p_Timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            p_Timer.Interval = 7500;
+            p_Timer.Enabled = true;
+        }
+        public void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            // Not Implemented
+            if ( Process.GetProcessesByName("arma3_x64").Length > 0 )
+            {
+                RPCManager.UpdatePresence("Maturita Edition", "Hraje Arma 3 (x64)", startupTimestamp, 0, "infisync", "", "test", "");
+                
+            }
+
+            if (Process.GetProcessesByName("arma3").Length > 0)
+            {
+                RPCManager.UpdatePresence("Maturita Edition", "Hraje Arma 3", startupTimestamp, 0, "infisync", "", "test", "");
+            }
+
+            if (Process.GetProcessesByName("arma3_be").Length > 0)
+            {
+                RPCManager.UpdatePresence("Maturita Edition", "Hraje Arma 3 (BattlEye)", startupTimestamp, 0, "infisync", "", "test", "");
+            }
         }
 
         private void AppMinimizeButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            this.WindowState = WindowState.Minimized;
         }
 
         private void AuthExitButton_Click(object sender, RoutedEventArgs e)
         {
             RPCManager.ShutdownPresence();
+            Trace.Flush();
             this.Close();
+            Application.Current.Shutdown();
         }
 
         private void WindowHeadbar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -129,7 +157,6 @@ namespace ZeroApp
                     string login = Authorization.Login(userConfig.Key[2].Value, userConfig.Key[3].Value);
                     if (login.Contains("\"token\""))
                     {
-                        Trace.WriteLine("TOKEN: " + login);
                         isAuthenticated = true;
                     }
                     else
@@ -180,17 +207,24 @@ namespace ZeroApp
                 // Set CurrentUser Label
                 CurrentUser.Content = USER;
 
-                // DODĚLAT
                 string arguments;
-                string connect = "-connect=" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.IP + " -port=" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Port;
-                if (ConnectCheckBox.IsChecked.Value == true)
+                if ( !String.IsNullOrWhiteSpace(repos[ReposListBox.SelectedIndex].Modpacks.Modpack.IP) && !String.IsNullOrWhiteSpace(repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Port) )
                 {
-                    arguments = mods + " " + "-name=" + USER + " " + startup_params + " " + connect;
-                    Trace.WriteLine("[PLAY] Auto-connect to:\n" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.IP + ":" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Port + "\n" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Password);
-
-                    if (repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Password != "")
+                    string connect = "-connect=" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.IP + " -port=" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Port;
+                    if (ConnectCheckBox.IsChecked.Value == true)
                     {
-                        arguments += " -password=" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Password;
+                        arguments = mods + " " + "-name=" + USER + " " + startup_params + " " + connect;
+                        Trace.WriteLine("[PLAY] Auto-connect to:\n" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.IP + ":" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Port + "\n" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Password);
+
+                        if (repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Password != "")
+                        {
+                            arguments += " -password=" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Password;
+                        }
+                    }
+                    else
+                    {
+                        arguments = mods + " " + "-name=" + USER + " " + startup_params;
+                        Trace.WriteLine("[PLAY] Do Not Connect");
                     }
                 }
                 else
@@ -225,12 +259,15 @@ namespace ZeroApp
             process.StartInfo.UseShellExecute = true;
             process.Start();
             
-
             Trace.WriteLine("#### LAUNCH ####\nSpouštěcí soubor: " + System.IO.Path.GetFileName(full_path) + "\nAdresář: " + full_path.Remove(full_path.Length - System.IO.Path.GetFileName(full_path).Length, System.IO.Path.GetFileName(full_path).Length) + "\nArgumenty:\n" + arguments);
+            MessageBox.Show("#### LAUNCH ####\nSpouštěcí soubor: " + System.IO.Path.GetFileName(full_path) + "\nAdresář: " + full_path.Remove(full_path.Length - System.IO.Path.GetFileName(full_path).Length, System.IO.Path.GetFileName(full_path).Length) + "\nArgumenty:\n" + arguments);
         }
 
         private void syncButton_Click(object sender, RoutedEventArgs e)
         {
+            this.MainProgressBar.Value = 0;
+            this.MainProgressBar.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 174, 0));
+
             var thread = new Thread(Synchronize);
             thread.Start(ReposListBox.SelectedIndex);
         }
@@ -245,21 +282,78 @@ namespace ZeroApp
 
                 //Načtení a ověření balíčku
                 var index = (int)data;
+                var max = (int)repos[index].Addons.Addon.Count;
+                var current = (string)repos[index].Modpacks.Modpack.ID;
+                this.SetProgressBarMax(max);
+
                 m_Manager.DownloadRepository(repos[index].Modpacks.Modpack.Source + "/index.xml");
                 m_Manager.VerifyModpacks();
 
-                m_Manager.LoadModpack(repos[index].Modpacks.Modpack.ID);
+                RepositoryObjectModel.Repository repo = m_Manager.GetModpack(current);
+
+                // Get all modpacks in ./Addons directory
+                string[] packs = Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + @"Addons\" + current);
+                int packs_count = packs.Length;
+
+                // Check if every addon in index.xml is in pack directory
+                for (int i = 0; i < repo.Addons.Addon.Count; i++)
+                {
+                    bool exists = packs.Any(s => s.Contains(repo.Addons.Addon[i].Name));
+                    if (exists)
+                    {
+                        Trace.WriteLine(repo.Addons.Addon[i].Name + " <- Existuje");
+                        Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.MainProgressBar.Value = i));
+                    }
+                    else
+                    {
+                        Trace.WriteLine(repo.Addons.Addon[i].Name + " <- Neexistuje");
+
+                        // Download this mod from URL in index.xml
+                        m_Manager.DownloadMod(repo, i);
+                        Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.MainProgressBar.Value = i));
+                    }
+                }
+
+                // Mazání neexistujících modů v kořenu
+                m_Manager.DeleteDirectoriesExcept(AppDomain.CurrentDomain.BaseDirectory + @"Addons\" + current, m_Manager.GetDirectoryExcludes(repo));
+                // Mazání souborů v adresáři modů
+                m_Manager.GetAllFiles(AppDomain.CurrentDomain.BaseDirectory + @"Addons\" + current, repo);
 
                 for (int i = 0; i < repos[index].Addons.Addon.Count; i++)
                 {
+                    // Verify integrity of mod
                     m_Manager.VerifyMod(repos[index].Modpacks.Modpack.ID, i);
+
+                    
+
+                    this.SetProgressBarVal(i + 1);
+                    this.CheckCompletedProgress((i + 1), max);
                 }
-                
             }
             catch (Exception ex)
             {
                 Trace.WriteLine("[Synchronize] Task Failed :: Exception [" + ex + "] thrown.");
             }
+        }
+
+        private void SetProgressBarVal(int val)
+        {
+            Application.Current.Dispatcher.BeginInvoke(
+              DispatcherPriority.Background,
+              new Action(() => this.MainProgressBar.Value = val));
+        }
+
+        private void CheckCompletedProgress(int val, int max)
+        {
+            if (val == max)
+            {
+                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.MainProgressBar.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(59, 179, 0))));
+            }
+        }
+
+        private void SetProgressBarMax(int max)
+        {
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.MainProgressBar.Maximum = max));
         }
 
         private void AddRepository_Click(object sender, RoutedEventArgs e)
@@ -275,10 +369,11 @@ namespace ZeroApp
         {
             try
             {
-                int index = ReposListBox.SelectedIndex;
-
-                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Addons/" + repos[index].Modpacks.Modpack.ID, true);
-                Trace.WriteLine("Smazán balíček módů (" + repos[index].Modpacks.Modpack.ID + ")");
+                if (ReposListBox.SelectedIndex > 0)
+                {
+                    Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Addons/" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.ID, true);
+                    Trace.WriteLine("Smazán balíček módů (" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.ID + ")");
+                }
                 
                 this.UpdateRepoList();
             }
@@ -292,6 +387,7 @@ namespace ZeroApp
         {
             if (ParametersPanel.Width < 836)
             {
+                RPCManager.UpdatePresence("Maturita Edition", "Nastavuje hru", startupTimestamp, 0, "infisync", "", "test", "");
                 CurrentUser.Content = USER;
 
                 var storyBoardIn = (Storyboard)this.Resources["Parameters_FadeIn"];
@@ -306,6 +402,7 @@ namespace ZeroApp
             }
             else
             {
+                RPCManager.UpdatePresence("Maturita Edition", "Je v launcheru", startupTimestamp, 0, "infisync", "", "test", "");
                 var storyBoardIn = (Storyboard)this.Resources["Parameters_FadeOut"];
                 storyBoardIn.Begin();
             }
@@ -339,10 +436,6 @@ namespace ZeroApp
                     }
 
                     ModsListBox.ItemsSource = Mods;
-                }
-                else
-                {
-
                 }
             }
             catch (Exception x)
@@ -481,12 +574,17 @@ namespace ZeroApp
                 uc_Handler.SetKeys("User", userConfig);
                 CurrentUser.Content = "OFFLINE";
 
-                Trace.WriteLine("[DeleteUserData] User Data Cleared in User.Parameters.xml");
+                Trace.WriteLine("[DeleteUserData] Vymazána uživatelská data v User.Parameters.xml");
             }
             catch (Exception x)
             {
                 Trace.WriteLine("[DeleteUserData] Task Failed :: " + x);
             }
+        }
+
+        private void Button_GoToAddons_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"Addons/");
         }
     }
 }

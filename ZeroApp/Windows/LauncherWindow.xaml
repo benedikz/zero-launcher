@@ -6,31 +6,17 @@
         xmlns:local="clr-namespace:ZeroApp"
         xmlns:zeroapp="clr-namespace:ZeroApp.Controls.Lists"
         mc:Ignorable="d"
-        Title="LauncherWindow" Height="600" Width="1100" Background="#FF242424" Foreground="#FED8D8D8"  WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="AppWindow_Loaded" >
+        Title="LauncherWindow" Width="1116" Height="607" Background="#FF242424" Foreground="#FED8D8D8" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="AppWindow_Loaded" MinWidth="862" MaxWidth="1116" MinHeight="607" MaxHeight="607" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" >
     <Grid>
         <Grid x:Name="WindowHeadbar" Height="22" VerticalAlignment="Top" Panel.ZIndex="100" Background="Black" MouseLeftButtonDown="WindowHeadbar_MouseLeftButtonDown">
-            <Label Content="Zero Launcher - Raven Edition" Foreground="#FF7F7F7F"  Width="150" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="10"/>
+            <Label Content="Zero Launcher - Maturita Edition" Foreground="#FF7F7F7F"  Width="173" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="11"/>
 
-            <StackPanel x:Name="WindowActionPanel" Orientation="Horizontal" Width="84" HorizontalAlignment="Right">
+            <StackPanel x:Name="WindowActionPanel" Orientation="Horizontal" Width="56" HorizontalAlignment="Right">
                 <Button x:Name="AppMinimizeButton" Height="22" Width="28" Click="AppMinimizeButton_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid Name="AppExitButtonGrid" Background="Transparent">
                                 <Image Height="12" Width="12" Source="pack://application:,,,/.zeroapp/media/min.png"/>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" TargetName="AppExitButtonGrid" Value="#282B2E" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button x:Name="AppMaximizeButton" Background="{x:Null}" Foreground="#FED8D8D8" Width="28" Height="22" BorderBrush="{x:Null}" Click="AppMaximizeButton_Click" VerticalAlignment="Top">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Grid Name="AppExitButtonGrid" Background="Transparent">
-                                <Image Height="12" Width="12" Source="pack://application:,,,/.zeroapp/media/max.png"/>
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
@@ -57,18 +43,18 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="WindowContentGrid" Margin="0,22,0,0">
-            <Grid x:Name="ParametersPanel" Visibility="Collapsed" HorizontalAlignment="Left" Width="0" Margin="0,0,0,26" Background="#141414" Panel.ZIndex="1001">
+            <Grid x:Name="ParametersPanel" Visibility="Collapsed" HorizontalAlignment="Left" Width="0" Margin="0,0,0,16" Background="#141414" Panel.ZIndex="1001">
                 <!-- 836 -->
                 <Grid x:Name="P_Header" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="75" Background="#FF121212">
                     <Label x:Name="P_Title" Content="Nastavení" Foreground="White" Margin="23" FontSize="18" />
                 </Grid>
                 <Grid x:Name="P_Content" Margin="0,75,0,0">
                     <Grid x:Name="P_SetPanel" HorizontalAlignment="Left" Width="600">
-                        <ListBox x:Name="ParamsListBox" Margin="0,0,0,43.8" Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
+                        <ListBox x:Name="ParamsListBox" Margin="0,0,0,56" Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
                         </ListBox>
 
                         <!-- PARAMETERS LIST CONTROLS -->
-                        <Grid Background="Black" Margin="0,433,0,-0.2">
+                        <Grid Background="#FF121212" Margin="0,438,0,0">
                             <Button x:Name="Button_SaveParams" Foreground="White" BorderBrush="{x:Null}" Background="#FF3BA826" Height="25" Margin="446,10,94,9" Click="Button_SaveParams_Click">
                                 <Button.Template>
                                     <ControlTemplate TargetType="{x:Type Button}">
@@ -132,11 +118,11 @@
                         </Grid>
                     </Grid>
                     <Grid x:Name="P_SidePanel" Margin="600,0,0,0" Background="#121212">
-                        <Button x:Name="Button_Credits" HorizontalContentAlignment="Right" FontSize="10" VerticalAlignment="Bottom" Height="22" Click="Button_Credits_Click" Margin="85,0,2,-0.2">
+                        <Button x:Name="Button_Credits" HorizontalContentAlignment="Right" FontSize="10" VerticalAlignment="Bottom" Height="22" Click="Button_Credits_Click" Margin="85,0,2,-0.2" HorizontalAlignment="Right">
                             <Button.Template>
                                 <ControlTemplate TargetType="{x:Type Button}">
                                     <Grid x:Name="Label_Credit_Grid" Cursor="Hand">
-                                        <Label x:Name="Label_Credit_Content" Content="© benedi.kz 2021" Foreground="#FF4E4E4E" HorizontalContentAlignment="Right" />
+                                        <Label x:Name="Label_Credit_Content" Content="© Tomáš Benedikt 2021" Foreground="#FF4E4E4E" HorizontalContentAlignment="Right" />
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
@@ -167,68 +153,90 @@
                         </Button>
                         <Label x:Name="CurrentUser" Content="OFFLINE" Margin="44,10,10,441.8" Foreground="#FFA6A6A6" Height="24.8" Width="181.6" VerticalAlignment="Top" HorizontalAlignment="Right" />
                         <Image x:Name="UserImage" Source="pack://application:,,,/.zeroapp/media/user.png" HorizontalAlignment="Left" Height="24" Margin="15,11,0,0" VerticalAlignment="Top" Width="24"/>
+                        <Button x:Name="Button_GoToAddons" Foreground="#FF646464" BorderBrush="{x:Null}" Background="{x:Null}" Margin="8,58,0,410" Width="114" HorizontalAlignment="Left" Click="Button_GoToAddons_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Grid x:Name="Button_GoToAddons_Grid" Background="{x:Null}" Cursor="Hand">
+                                        <TextBlock x:Name="Button_GoToAddons_TextBlock" Text="Do složky s modpacky" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" TargetName="Button_GoToAddons_TextBlock" Value="#FFAEAEAE" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Foreground" TargetName="Button_GoToAddons_TextBlock" Value="#FFE4E4E4" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>
 
-            <Button x:Name="Button_Launch" Content="HRÁT" HorizontalAlignment="Left" Margin="858,470,0,0" VerticalAlignment="Top" Width="215" Height="47" Foreground="White" Click="playButton_Click" Cursor="Hand">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border>
-                            <Grid x:Name="Button_Launch_Grid" Background="#121212" Cursor="Hand">
-                                <TextBlock x:Name="AuthLoginTextBlock" Text="HRÁT" FontWeight="ExtraBold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" TargetName="Button_Launch_Grid" Value="#FF568058" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Foreground" TargetName="AuthLoginTextBlock" Value="#FFF" />
-                                <Setter Property="Background" TargetName="Button_Launch_Grid" Value="#FF3DA342" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button x:Name="Button_Synchronize" Content="Synchronizovat mody" HorizontalAlignment="Left" Margin="858,407,0,0" VerticalAlignment="Top" Width="215" Height="47" Foreground="White" Background="#FF353535" Click="syncButton_Click" Cursor="Hand">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="#646464" BorderThickness="2">
-                            <Grid x:Name="AuthLoginButtonGrid" Background="#323232" Cursor="Hand">
-                                <TextBlock x:Name="AuthLoginTextBlock" Text="Synchronizovat" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Grid>
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" TargetName="AuthLoginButtonGrid" Value="#646464" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Foreground" TargetName="AuthLoginTextBlock" Value="#000" />
-                                <Setter Property="Background" TargetName="AuthLoginButtonGrid" Value="#FFDFC547" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Grid x:Name="BottomPanel" Width="1100" Height="26" VerticalAlignment="Bottom" Background="Black">
-                <ProgressBar x:Name="MainProgressBar" BorderBrush="{x:Null}" Foreground="#FFFFEE00" IsIndeterminate="False" Visibility="Collapsed"/>
+            <Grid x:Name="BottomPanel" Height="16" VerticalAlignment="Bottom" Background="Black">
+                <ProgressBar x:Name="MainProgressBar" BorderBrush="{x:Null}" Foreground="#FFFFAE00" IsIndeterminate="False" Visibility="Visible" Background="{x:Null}"/>
             </Grid>
-            <Image x:Name="banner" HorizontalAlignment="Left" Height="110" Margin="32,421,0,0" VerticalAlignment="Top" Width="553" Stretch="None" OpacityMask="Black" Source="pack://application:,,,/.zeroapp/media/test.png"/>
-            <Grid x:Name="ModpackGrid" HorizontalAlignment="Left" Height="289" Margin="32,72,0,0" VerticalAlignment="Top" Width="394" Background="#FF181818" Loaded="ModpackGrid_Loaded">
+            <Grid Margin="0,0,0,26" Height="150" VerticalAlignment="Bottom">
+                <Image x:Name="banner" Height="140" Margin="32,10,0,0" VerticalAlignment="Top" Width="832" OpacityMask="Black" Source="pack://application:,,,/.zeroapp/media/banner.png" HorizontalAlignment="Left"/>
+                <CheckBox x:Name="ConnectCheckBox" Content="Připojit" ToolTip="Automaticky připojit na server?" HorizontalAlignment="Right" Margin="0,125,32,0" VerticalAlignment="Top" Width="215" IsChecked="True" Foreground="White" BorderBrush="{x:Null}" Background="White"/>
+                <Button x:Name="Button_Launch" Content="HRÁT" Margin="0,70,32,0" Foreground="White" Click="playButton_Click" Cursor="Hand" HorizontalAlignment="Right" Width="215" Height="47" VerticalAlignment="Top">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border>
+                                <Grid x:Name="Button_Launch_Grid" Background="#121212" Cursor="Hand">
+                                    <TextBlock x:Name="AuthLoginTextBlock" Text="HRÁT" FontWeight="ExtraBold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" TargetName="Button_Launch_Grid" Value="#FF568058" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Foreground" TargetName="AuthLoginTextBlock" Value="#FFF" />
+                                    <Setter Property="Background" TargetName="Button_Launch_Grid" Value="#FF3DA342" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="Button_Synchronize" Content="Synchronizovat mody" HorizontalAlignment="Right" Margin="0,10,32,0" VerticalAlignment="Top" Width="215" Height="47" Foreground="White" Background="#FF353535" Click="syncButton_Click" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border BorderBrush="#646464" BorderThickness="2">
+                                <Grid x:Name="AuthLoginButtonGrid" Background="#323232" Cursor="Hand">
+                                    <TextBlock x:Name="AuthLoginTextBlock" Text="Synchronizovat" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" TargetName="AuthLoginButtonGrid" Value="#646464" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Foreground" TargetName="AuthLoginTextBlock" Value="#000" />
+                                    <Setter Property="Background" TargetName="AuthLoginButtonGrid" Value="#FFDFC547" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+
+
+            <Grid x:Name="ModpackGrid" Margin="32,72,0,216" Background="#FF181818" Loaded="ModpackGrid_Loaded" HorizontalAlignment="Left" MinWidth="382">
                 <ListBox x:Name="ReposListBox" Background="{x:Null}" SelectionMode="Single" SelectionChanged="ReposListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="Black"/>
             </Grid>
 
-            <Grid x:Name="ModsGrid" HorizontalAlignment="Left" Height="324" Margin="453,72,0,0" VerticalAlignment="Top" Width="382" Background="#FF181818" Loaded="ModsGrid_Loaded">
+            <Grid x:Name="ModsGrid" HorizontalAlignment="Left" Margin="453,72,0,179" Background="#FF181818" Loaded="ModsGrid_Loaded" MinWidth="382">
                 <ListBox x:Name="ModsListBox"  Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="Black"/>
             </Grid>
-            <Label x:Name="RepoList_Title" Content="Balíčky módů" HorizontalAlignment="Left" Margin="27,43,0,0" VerticalAlignment="Top" Width="250" Foreground="White" FontSize="16"/>
+            <Label x:Name="RepoList_Title" Content="Balíčky módů" Margin="27,43,0,0" VerticalAlignment="Top" Width="387" Foreground="White" FontSize="16" HorizontalAlignment="Left" Height="29"/>
 
-            <Label x:Name="ModList_Title" Content="Seznam módů" HorizontalAlignment="Left" Margin="450,43,0,0" VerticalAlignment="Top" Width="250" Foreground="White" FontSize="16"/>
-            <Grid Background="Black" Margin="32,361,674,182">
-                <StackPanel Orientation="Horizontal" Margin="263,0,0,0.6">
-                    <Button x:Name="Button_AddRepository" Content="+" Foreground="White" BorderBrush="{x:Null}" Background="#FF3BA826" FontSize="22" Click="AddRepository_Click" Width="25" Height="25">
+            <Label x:Name="ModList_Title" Content="Seznam módů" HorizontalAlignment="Left" Margin="450,43,0,0" VerticalAlignment="Top" Width="385" Foreground="White" FontSize="16" Height="29"/>
+            <Grid Background="Black" Margin="32,0,0,180" Height="36" Width="382" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal" Margin="252,0,0,1">
+                    <Button x:Name="Button_AddRepository" Content="+" Foreground="White" BorderBrush="{x:Null}" Background="#FF3BA826" FontSize="22" Click="AddRepository_Click" Width="25" Height="25" Margin="0,5,0,4" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Grid x:Name="Button_AddRepository_Grid" Background="#FF3BA826" Cursor="Hand">
@@ -248,7 +256,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button x:Name="Button_RemoveRepository" Content="x" Foreground="White" BorderBrush="{x:Null}" Background="#FFA82626" FontSize="22" Click="Button_RemoveRepository_Click" HorizontalAlignment="Left" Width="25" Height="25">
+                    <Button x:Name="Button_RemoveRepository" Content="x" Foreground="White" BorderBrush="{x:Null}" Background="#FFA82626" FontSize="22" Click="Button_RemoveRepository_Click" HorizontalAlignment="Left" Width="25" Height="25" Margin="0,5,0,4" VerticalAlignment="Bottom">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Grid x:Name="Button_AddRepository_Grid" Background="#FFA82626" Cursor="Hand">
@@ -268,7 +276,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button x:Name="Button_RefreshReposList" Content="x" Foreground="White" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="22" Click="Button_RefreshReposList_Click" Width="75" Height="25">
+                    <Button x:Name="Button_RefreshReposList" Content="x" Foreground="White" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="22" Click="Button_RefreshReposList_Click" Width="75" Height="25" Margin="0,5,0,4" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Grid x:Name="Button_AddRepository_Grid" Background="#FFA89126" Cursor="Hand">
@@ -290,7 +298,7 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            <Grid HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="1100" Background="#FF1A1A1A">
+            <Grid Height="23" VerticalAlignment="Top" Background="#FF1A1A1A">
                 <Button x:Name="Button_Settings" Foreground="{x:Null}" BorderBrush="{x:Null}" Click="Button_Settings_Click" Margin="0,3,6,0" Cursor="Hand" Height="16" VerticalAlignment="Top" Width="16" HorizontalAlignment="Right">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -310,7 +318,6 @@
                     </Button.Template>
                 </Button>
             </Grid>
-            <CheckBox x:Name="ConnectCheckBox" Content="Připojit" HorizontalAlignment="Left" Margin="858,527,0,0" VerticalAlignment="Top" Width="215" IsChecked="True" Foreground="White" BorderBrush="{x:Null}" Background="White"/>
         </Grid>
     </Grid>
 
@@ -340,9 +347,5 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-
     </Window.Resources>
-
-
-
 </Window>

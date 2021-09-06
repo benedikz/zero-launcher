@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\benze\Desktop\RavensLauncher\ZeroApp\obj\Debug\
+C:\Users\benze\OneDrive\Plocha\Repozitáře\zeroapp-raven-launcher\ZeroApp\obj\Debug\
 ZeroApp
 none
 false
 DEBUG;TRACE
-C:\Users\benze\Desktop\RavensLauncher\ZeroApp\App.xaml
+C:\Users\benze\OneDrive\Plocha\Repozitáře\zeroapp-raven-launcher\ZeroApp\App.xaml
 7-1038496189
-2-1724851653
+281849688565
 26327007282
-25-433986732
+251842535645
 Controls\Lists\ModListItem.xaml;Controls\Lists\ParametersListItem.xaml;Windows\Dialogs\AuthWindow.xaml;Controls\Lists\RepositoryListItem.xaml;Windows\Dialogs\Dialog_Setup.xaml;Windows\LauncherWindow.xaml;Windows\Dialogs\Dialog_AddRepo.xaml;
 
-False
+True
 

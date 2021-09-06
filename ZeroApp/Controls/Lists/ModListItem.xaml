@@ -13,7 +13,7 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid Margin="5,0,6,0" Height="26">
                         <!-- <Image Height="26" Width="26" Source="pack://application:,,,/.zeroapp/media/box.png" HorizontalAlignment="Left" /> -->
-                        <Label Content="{Binding m_Name, ElementName=modListItem}" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontWeight="Bold" />
+                        <Label Content="{Binding m_Name, ElementName=modListItem}" ToolTip="{Binding m_Name, ElementName=modListItem}" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontWeight="Bold" />
                     </Grid>
                 </ControlTemplate>
             </Button.Template>

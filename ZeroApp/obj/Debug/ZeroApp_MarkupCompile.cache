@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\benze\OneDrive\Plocha\zeroapp_proj\ZeroApp\obj\Debug\
+C:\Users\benze\OneDrive\Plocha\ITB17-SMPR-Pjr-Benedikt Tomáš-Program spouštěče a mod manageru hry\ZeroLauncher - Projekt Visual Studio 2019\ZeroApp\obj\Debug\
 ZeroApp
 none
 false
 DEBUG;TRACE
-C:\Users\benze\OneDrive\Plocha\zeroapp_proj\ZeroApp\App.xaml
+C:\Users\benze\OneDrive\Plocha\ITB17-SMPR-Pjr-Benedikt Tomáš-Program spouštěče a mod manageru hry\ZeroLauncher - Projekt Visual Studio 2019\ZeroApp\App.xaml
 7-1038496189
-2-1724851653
-251169366649
-25-1479700792
+281849688565
+26327007282
+25833943482
 Controls\Lists\ModListItem.xaml;Controls\Lists\ParametersListItem.xaml;Windows\Dialogs\AuthWindow.xaml;Controls\Lists\RepositoryListItem.xaml;Windows\Dialogs\Dialog_Setup.xaml;Windows\LauncherWindow.xaml;Windows\Dialogs\Dialog_AddRepo.xaml;
 
-False
+True
 

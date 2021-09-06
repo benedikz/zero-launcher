@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ZeroApp
 {
-    static class Static
+    public static class Static
     {
         /// <summary>
         /// Static function for conversion of string to boolean value.
@@ -44,8 +44,14 @@ namespace ZeroApp
         public static DateTime TimestampToDate(int timestamp)
         {
             DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(timestamp).ToLocalTime();
-            Trace.WriteLine("[Static.TimestampToDate] Converted " + timestamp + " to " + date.ToString("F"));
+            //Trace.WriteLine("[Static.TimestampToDate] Converted " + timestamp + " to " + date.ToString("F"));
             return date;
+        }
+
+        public static long DateToTimestamp(DateTime value)
+        {
+            long epoch = (value.Ticks - 621355968000000000) / 10000000;
+            return epoch;
         }
     }
 }

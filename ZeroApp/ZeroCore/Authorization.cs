@@ -12,10 +12,13 @@ namespace ZeroApp
 {
     class Authorization
     {
-        // Client Token
-        //private string c_Token = String.Empty;
-
-        // Sends API request for authorization token
+        /// <summary>
+        /// Sends API request for authorization token
+        /// </summary>
+        /// <param name="api"></param>
+        /// <param name="api_name"></param>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
         private static string GetToken(string api, string api_name, string[] credentials)
         {
             try
@@ -35,7 +38,13 @@ namespace ZeroApp
             }
         }
 
-        // Sends API request for registration of a new user [true - Success | false - Failure]
+        /// <summary>
+        /// Sends API request for registration of a new user 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="passcheck"></param>
+        /// <returns>[true - Success | false - Failure]</returns>
         public static bool Register(string username, string password, string passcheck)
         {
             try
@@ -43,8 +52,6 @@ namespace ZeroApp
                 string content = "{\"name\":\"registerUser\",\"param\":{\"username\":\"" + username + "\",\"password\":\"" + password + "\", \"passcheck\":\"" + password + "\"}}";
                 string[] response = Web.SendWebRequest("register", "POST", "", "application/json", null);
                 string r_Status = response[0];
-
-                Trace.WriteLine("<Register> " + r_Status);
 
                 if ( r_Status == "200")
                 {
@@ -61,7 +68,12 @@ namespace ZeroApp
             }
         }
 
-        // Sends API request for login form validation [Token - Success | Empty Token - Failure]
+        /// <summary>
+        /// Sends API request for login form validation 
+        /// </summary>
+        /// <param name="username">Username parameter</param>
+        /// <param name="password">Password parameter</param>
+        /// <returns>[Token - Success | Empty Token - Failure]</returns>
         public static string Login(string username, string password)
         {
             try
@@ -70,9 +82,6 @@ namespace ZeroApp
                 string[] response = Web.SendWebRequest(AuthWindow.API_URL, "POST", "application/json", content, null);
                 string r_Token = response[1];
 
-                Trace.WriteLine(content);
-                Trace.WriteLine(r_Token);
-
                 return r_Token;
             }
             catch (Exception e)
@@ -80,12 +89,6 @@ namespace ZeroApp
                 Trace.WriteLine("[Login] Task Failed :: Exception [" + e + "] thrown.");
                 return String.Empty;
             }
-        }
-
-        // Facilitates removal of all session data and exits user from the app
-        public static void Logout()
-        {
-            // Clear temporary data & configuration files
         }
     }
 }

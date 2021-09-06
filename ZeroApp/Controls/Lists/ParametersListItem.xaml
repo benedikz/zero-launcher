@@ -9,9 +9,9 @@
              d:DesignHeight="50" d:DesignWidth="550">
     <Grid Background="Transparent" Width="550">
         <Grid x:Name="P_ContentGrid" Margin="0,0">
-            <TextBlock TextTrimming="WordEllipsis" Text="{Binding P_Name, ElementName=parametersListItem}" FontWeight="Bold" Foreground="White" Margin="39,17,400.4,17.6" VerticalAlignment="Center" />
+            <TextBlock TextTrimming="WordEllipsis" Text="{Binding P_Name, ElementName=parametersListItem}" ToolTip="{Binding P_Name, ElementName=parametersListItem}" FontWeight="Bold" Foreground="White" Margin="39,18,308,18" VerticalAlignment="Center" />
             <CheckBox x:Name="P_Active" IsChecked="{Binding P_IsActive, ElementName=parametersListItem}" Width="20" BorderBrush="{x:Null}" Background="White" Foreground="Black" HorizontalAlignment="Left" Margin="14,17,0,9.6"/>
-            <TextBox VerticalContentAlignment="Center" Visibility="{Binding P_HasValue, ElementName=parametersListItem}" Padding="10,0,0,0" Background="#FF121212" SelectionBrush="#FF619451" Foreground="White" Text="{Binding P_Value, ElementName=parametersListItem}" BorderBrush="#FF3D3D3D" Margin="155,10,23.4,9.6" />
+            <TextBox VerticalContentAlignment="Center" Visibility="{Binding P_HasValue, ElementName=parametersListItem}" Padding="10,0,0,0" Background="#FF121212" SelectionBrush="#FF619451" Foreground="White" Text="{Binding P_Value, ElementName=parametersListItem}" BorderBrush="#FF3D3D3D" Margin="247,10,23,10" />
         </Grid>
     </Grid>
 </UserControl>

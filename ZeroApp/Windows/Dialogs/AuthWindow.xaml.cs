@@ -25,11 +25,8 @@ namespace ZeroApp
         /// <summary>
         /// Static Application Variables
         /// </summary>
-        public static string APP_PATH = AppDomain.CurrentDomain.BaseDirectory;
-        public static bool APP_SETUP = Static.ToBoolean(ConfigurationManager.AppSettings["IsSetup"]);
         public static string API_URL = ConfigurationManager.AppSettings["URL_API"];
         public static string API_DOM = Regex.Match(API_URL, @"(http:|https:)\/\/(.*?)\/").ToString();
-        public static string API_NAME;
         private static string SERVERCONFIG_REMOTEURL = ConfigurationManager.AppSettings["URL_Repository"];
 
         public AuthWindow()
@@ -41,7 +38,6 @@ namespace ZeroApp
         {
             try
             {
-                string regex = "^[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*$";
                 string i_username = LoginUsernameInput.Text;
                 string i_password = LoginUserPinInput.Password;
 
