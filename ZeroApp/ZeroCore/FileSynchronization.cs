@@ -65,11 +65,10 @@ namespace ZeroApp
         /// <summary>
         /// Compares local and remote indexes of one modpack
         /// </summary>
-        /// <param name="pack_name"></param>
         /// <param name="remote_index"></param>
         /// <param name="local_index"></param>
         /// <returns></returns>
-        public int CompareIndexes(string pack_name, string remote_index, string local_index)
+        public int CompareIndexes(string remote_index, string local_index)
         {
             int diff = String.Compare(remote_index, local_index);
             return diff;

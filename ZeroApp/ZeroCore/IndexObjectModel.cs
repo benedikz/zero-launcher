@@ -10,7 +10,7 @@ namespace ZeroApp
     /// <summary>
     /// Repository Object Model
     /// </summary>
-    public class RepositoryObjectModel
+    public class IndexObjectModel
     {
 		[XmlRoot(ElementName = "Mods")]
 		public class Mods
@@ -98,6 +98,7 @@ namespace ZeroApp
 			public List<Addon> Addon { get; set; }
 		}
 
+		// RENAME TO INDEX (NEEDS CHANGE OF INDEX.XML AND OTHER STUFF)
 		[XmlRoot(ElementName = "Repository")]
 		public class Repository
 		{

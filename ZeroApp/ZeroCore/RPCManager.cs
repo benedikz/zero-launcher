@@ -24,7 +24,7 @@ namespace ZeroApp
             eventHandlers.errorCallback += Callback_Error;
 
             DiscordRichPresence.Initialize(clientId, ref eventHandlers, true, null);
-            Trace.WriteLine("[RPC] Rich Presence Initialized.");
+            Trace.WriteLine("[Rich Presence] Inicializováno.");
         }
 
         public static void UpdatePresence(string details, string state, long timestamp_start, long timestamp_end, string largeImageKey, string largeImageText, string smallImageKey, string smallImageText)
@@ -39,32 +39,32 @@ namespace ZeroApp
             richPresence.smallImageText = smallImageText;
 
             DiscordRichPresence.UpdatePresence(ref richPresence);
-            Trace.WriteLine("[RPC] Rich Presence Updated.");
+            Trace.WriteLine("[Rich Presence] Aktualizován stav.");
         }
 
         public static void ShutdownPresence()
         {
             DiscordRichPresence.Shutdown();
-            Trace.WriteLine("[RPC] Rich Presence Shutdown.");
+            Trace.WriteLine("[Rich Presence] Ukončeno.");
         }
 
         // Event Handlers for Remote Procedure Calls
 
         private static void Callback_Ready()
         {
-            Trace.WriteLine("[RPC] Callback Ready.");
+            Trace.WriteLine("[Rich Presence] Zpětné volání připraveno.");
         }
 
         private static void Callback_Disconnected(int error_code, string message)
         {
             // Přidat error_code a message
-            Trace.WriteLine("[RPC] Callback Disconnected.");
+            Trace.WriteLine("[Rich Presence] Zpětné volání odpojeno.");
         }
 
         private static void Callback_Error(int error_code, string message)
         {
             // Přidat error_code a message
-            Trace.WriteLine("[RPC] Callback Error.");
+            Trace.WriteLine("[Rich Presence] Chyba zpětného volání.");
         }
     }
 

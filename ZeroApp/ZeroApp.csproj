@@ -134,8 +134,9 @@
     <Compile Include="ZeroCore\Mods.cs" />
     <Compile Include="ZeroCore\Parameters.cs" />
     <Compile Include="ZeroCore\ParametersObjectModel.cs" />
-    <Compile Include="ZeroCore\RepositoryObjectModel.cs" />
+    <Compile Include="ZeroCore\IndexObjectModel.cs" />
     <Compile Include="ZeroCore\Static.cs" />
+    <Compile Include="ZeroCore\TaskbarList.cs" />
     <Compile Include="ZeroCore\Web.cs" />
     <Compile Include="Windows\Dialogs\Dialog_AddRepo.xaml.cs">
       <DependentUpon>Dialog_AddRepo.xaml</DependentUpon>
@@ -189,47 +190,48 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="logo_zeroapps.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="ZeroApp_TemporaryKey.pfx" />
-    <Content Include=".zeroapp\fonts\Roboto-Black.ttf">
+    <Resource Include=".zeroapp\fonts\Roboto-Black.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-BlackItalic.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-BlackItalic.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-Bold.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-BoldItalic.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-BoldItalic.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-Italic.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-Italic.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-Light.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-Light.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-LightItalic.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-LightItalic.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-Medium.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-Medium.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-MediumItalic.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-MediumItalic.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-Regular.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-Thin.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-Thin.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\fonts\Roboto-ThinItalic.ttf">
+    </Resource>
+    <Resource Include=".zeroapp\fonts\Roboto-ThinItalic.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -240,66 +242,52 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".zeroapp\media\min.png">
+    <Resource Include=".zeroapp\media\app_logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
+    <Resource Include=".zeroapp\media\min.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".zeroapp\media\max.png">
+    <Resource Include=".zeroapp\media\max.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".zeroapp\media\quit.png">
+    <Resource Include=".zeroapp\media\quit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".zeroapp\media\zeroapp_logo.png">
+    <Resource Include=".zeroapp\media\sync_cloud.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ZeroCore\RPCManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include=".zeroapp\media\connection_green.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\media\connection_red.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\media\connection_yellow.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".logs\" />
     <Folder Include="Addons\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".zeroapp\media\magnifier.png">
+    <Resource Include=".zeroapp\media\magnifier.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\media\corner.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <Resource Include="app.ico" />
     <Content Include="Data\Apps\Arma3\App.Parameters.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include=".zeroapp\media\box.png">
+    <Resource Include=".zeroapp\media\box.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\media\gear.png">
+    </Resource>
+    <Resource Include=".zeroapp\media\gear.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\media\user.png">
+    </Resource>
+    <Resource Include=".zeroapp\media\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include=".zeroapp\media\banner.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <Content Include="Data\Client\User.Config.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

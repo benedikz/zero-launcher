@@ -76,11 +76,9 @@ namespace ZeroApp
             }
         }
 
-
-
         private void Button_ExitDialog_Click(object sender, RoutedEventArgs e)
         {
-            CloseDialog();
+            //CloseDialog();
         }
 
         private void CloseDialog()

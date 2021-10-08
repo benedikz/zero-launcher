@@ -94,6 +94,7 @@ namespace ZeroApp
             }
         }
 
+        // SYSTEM.NET.WEBEXCEPTION !!!
         public static void DownloadFile(string from, string to)
         {
             try
@@ -108,6 +109,7 @@ namespace ZeroApp
                 HttpRequestCachePolicy noCachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
                 httpRequest.CachePolicy = noCachePolicy;
                 httpRequest.Headers.Add("Cache-Control", "no-cache");
+                httpRequest.Timeout = Timeout.Infinite;
 
                 HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
                 Stream httpResponseStream = httpResponse.GetResponseStream();

@@ -45,7 +45,7 @@ namespace ZeroApp
         // UNIVERSAL DECLARATION OF LIST OF PARAMETERS
         List<ParametersObjectModel.Parameter> parameters = new List<ParametersObjectModel.Parameter>();
         // UNIVERSAL DECLARATION OF REPOSITORY OBJECT
-        List<RepositoryObjectModel.Repository> repos = new List<RepositoryObjectModel.Repository>();
+        List<IndexObjectModel.Repository> repos = new List<IndexObjectModel.Repository>();
 
         // Timestamp (STARTUP)
         readonly static Int32 startupTimestamp = (Int32)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
@@ -57,12 +57,28 @@ namespace ZeroApp
 
         private void AppWindow_Loaded(object sender, RoutedEventArgs e)
         {   
-            // Initialize Trace Listener
-            Trace.Listeners.Add(new TextWriterTraceListener(".logs/zeroapp.log"));
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @".logs/zeroapp.log"))
+            {
+                // Try to clear previous logs
+                try
+                {
+                    File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @".logs/zeroapp.log", String.Empty);
+
+                    // Initialize Trace Listener
+                    Trace.Listeners.Add(new TextWriterTraceListener(".logs/zeroapp.log"));
+                }
+                catch (Exception)
+                {
+                    // Initialize Trace Listener
+                    Trace.Listeners.Add(new TextWriterTraceListener(".logs/zeroapp.log"));
+
+                    Trace.WriteLine("[CHYBA] Nepodařilo se vymazat {zeroapp.log}. Pokračování ...");
+                }
+            }
 
             // Start Discord Rich Presence
             RPCManager.Initialize("638122033632509973");
-            RPCManager.UpdatePresence("Maturita Edition", "Je v launcheru", startupTimestamp, 0, "infisync", "a", "test", "b");
+            RPCManager.UpdatePresence("44.RR Edition", "Je v launcheru", startupTimestamp, 0, "infisync", "a", "test", "b");
 
             // Initialize Repositories List & Parameters List
             var uc_Handler = new UserConfig();
@@ -86,7 +102,7 @@ namespace ZeroApp
             ParametersPanel.Visibility = Visibility.Visible;
             
             string key_IsSetup = uc_Handler.GetKeys("User").Key[0].Value;
-            Trace.WriteLine("[IsSetUp] " + key_IsSetup);
+            Trace.WriteLine("[Ověření instalace] " + key_IsSetup);
             if (key_IsSetup == "false")
             {
                 Dialog_Setup setupDialog = new Dialog_Setup();
@@ -106,18 +122,18 @@ namespace ZeroApp
         {
             if ( Process.GetProcessesByName("arma3_x64").Length > 0 )
             {
-                RPCManager.UpdatePresence("Maturita Edition", "Hraje Arma 3 (x64)", startupTimestamp, 0, "infisync", "", "test", "");
+                RPCManager.UpdatePresence("44.RR Edition", "Hraje Arma 3 (x64)", startupTimestamp, 0, "infisync", "", "test", "");
                 
             }
 
             if (Process.GetProcessesByName("arma3").Length > 0)
             {
-                RPCManager.UpdatePresence("Maturita Edition", "Hraje Arma 3", startupTimestamp, 0, "infisync", "", "test", "");
+                RPCManager.UpdatePresence("44.RR Edition", "Hraje Arma 3", startupTimestamp, 0, "infisync", "", "test", "");
             }
 
-            if (Process.GetProcessesByName("arma3_be").Length > 0)
+            if (Process.GetProcessesByName("arma3battleye").Length > 0)
             {
-                RPCManager.UpdatePresence("Maturita Edition", "Hraje Arma 3 (BattlEye)", startupTimestamp, 0, "infisync", "", "test", "");
+                RPCManager.UpdatePresence("44.RR Edition", "Hraje Arma 3 (BattlEye)", startupTimestamp, 0, "infisync", "", "test", "");
             }
         }
 
@@ -150,7 +166,7 @@ namespace ZeroApp
                 var p_Handler = new Parameters();
                 ParametersObjectModel.Parameters parameters = p_Handler.GetParameters("Arma3");
                 var m_Handler = new Mods();
-                RepositoryObjectModel.Repository modpack = m_Handler.GetModpack(repos[ReposListBox.SelectedIndex].Modpacks.Modpack.ID);
+                IndexObjectModel.Repository modpack = m_Handler.GetModpack(repos[ReposListBox.SelectedIndex].Modpacks.Modpack.ID);
 
                 if ( userConfig.Key[2].Value.Length != 0 && userConfig.Key[3].Value.Length != 0 )
                 {
@@ -161,7 +177,7 @@ namespace ZeroApp
                     }
                     else
                     {
-                        Trace.WriteLine("INVALID CREDENTIALS " + login);
+                        Trace.WriteLine("[VAROVÁNÍ] Neplatné přihlašovací údaje:\n" + login);
 
                         AuthWindow authDialog = new AuthWindow();
                         System.Windows.Media.Effects.BlurEffect blur = new System.Windows.Media.Effects.BlurEffect();
@@ -214,7 +230,7 @@ namespace ZeroApp
                     if (ConnectCheckBox.IsChecked.Value == true)
                     {
                         arguments = mods + " " + "-name=" + USER + " " + startup_params + " " + connect;
-                        Trace.WriteLine("[PLAY] Auto-connect to:\n" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.IP + ":" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Port + "\n" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Password);
+                        Trace.WriteLine("[PLAY] Připojit ke vzdálenému serveru: " + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.IP + ":" + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Port + " Heslo: " + repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Password);
 
                         if (repos[ReposListBox.SelectedIndex].Modpacks.Modpack.Password != "")
                         {
@@ -224,13 +240,13 @@ namespace ZeroApp
                     else
                     {
                         arguments = mods + " " + "-name=" + USER + " " + startup_params;
-                        Trace.WriteLine("[PLAY] Do Not Connect");
+                        Trace.WriteLine("[PLAY] Nepřipojovat k serveru");
                     }
                 }
                 else
                 {
                     arguments = mods + " " + "-name=" + USER + " " + startup_params;
-                    Trace.WriteLine("[PLAY] Do Not Connect");
+                    Trace.WriteLine("[PLAY] Nepřipojovat k serveru");
                 }
 
                 if ( isAuthenticated )
@@ -250,8 +266,6 @@ namespace ZeroApp
 
         private void Launch(string full_path, string arguments)
         {
-            Trace.WriteLine("[USER] " + USER);
-            
             Process process = new Process();
             process.StartInfo.FileName = System.IO.Path.GetFileName(full_path);
             process.StartInfo.Arguments = arguments;
@@ -259,8 +273,7 @@ namespace ZeroApp
             process.StartInfo.UseShellExecute = true;
             process.Start();
             
-            Trace.WriteLine("#### LAUNCH ####\nSpouštěcí soubor: " + System.IO.Path.GetFileName(full_path) + "\nAdresář: " + full_path.Remove(full_path.Length - System.IO.Path.GetFileName(full_path).Length, System.IO.Path.GetFileName(full_path).Length) + "\nArgumenty:\n" + arguments);
-            MessageBox.Show("#### LAUNCH ####\nSpouštěcí soubor: " + System.IO.Path.GetFileName(full_path) + "\nAdresář: " + full_path.Remove(full_path.Length - System.IO.Path.GetFileName(full_path).Length, System.IO.Path.GetFileName(full_path).Length) + "\nArgumenty:\n" + arguments);
+            Trace.WriteLine("[INFO] Spuštění: " + System.IO.Path.GetFileName(full_path) + "\n> Adresář: " + full_path.Remove(full_path.Length - System.IO.Path.GetFileName(full_path).Length, System.IO.Path.GetFileName(full_path).Length) + "\n> Argumenty:\n" + arguments);
         }
 
         private void syncButton_Click(object sender, RoutedEventArgs e)
@@ -286,10 +299,20 @@ namespace ZeroApp
                 var current = (string)repos[index].Modpacks.Modpack.ID;
                 this.SetProgressBarMax(max);
 
+                // Turn on "Working" Taskbar behavior
+                foreach (Process process in Process.GetProcesses())
+                {
+                    if (process.MainWindowTitle == "ZeroApp.Raven")
+                    {
+                        IntPtr handle = process.MainWindowHandle;
+                        TaskbarList.SetProgressState(handle, TaskbarButtonProgressFlags.Indeterminate);
+                    }
+                }
+
                 m_Manager.DownloadRepository(repos[index].Modpacks.Modpack.Source + "/index.xml");
                 m_Manager.VerifyModpacks();
 
-                RepositoryObjectModel.Repository repo = m_Manager.GetModpack(current);
+                IndexObjectModel.Repository repo = m_Manager.GetModpack(current);
 
                 // Get all modpacks in ./Addons directory
                 string[] packs = Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + @"Addons\" + current);
@@ -324,15 +347,22 @@ namespace ZeroApp
                     // Verify integrity of mod
                     m_Manager.VerifyMod(repos[index].Modpacks.Modpack.ID, i);
 
-                    
-
                     this.SetProgressBarVal(i + 1);
                     this.CheckCompletedProgress((i + 1), max);
                 }
             }
             catch (Exception ex)
             {
-                Trace.WriteLine("[Synchronize] Task Failed :: Exception [" + ex + "] thrown.");
+                foreach (Process process in Process.GetProcesses())
+                {
+                    if (process.MainWindowTitle == "ZeroApp.Raven")
+                    {
+                        IntPtr handle = process.MainWindowHandle;
+                        TaskbarList.SetProgressState(handle, TaskbarButtonProgressFlags.Error);
+                    }
+                }
+
+                Trace.WriteLine("[Synchronize] Operace selhala :: Výjimka:\n" + ex);
             }
         }
 
@@ -348,6 +378,16 @@ namespace ZeroApp
             if (val == max)
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.MainProgressBar.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(59, 179, 0))));
+
+                foreach (Process process in Process.GetProcesses())
+                {
+                    if (process.MainWindowTitle == "ZeroApp.Raven")
+                    {
+                        IntPtr handle = process.MainWindowHandle;
+                        Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => 
+                            TaskbarList.SetProgressState(handle, TaskbarButtonProgressFlags.NoProgress)));
+                    }
+                }
             }
         }
 
@@ -379,7 +419,7 @@ namespace ZeroApp
             }
             catch (Exception exe)
             {
-                Trace.WriteLine("[GetAllRepositories] Task Failed :: Exception [" + exe + "] thrown.");
+                Trace.WriteLine("[GetAllRepositories] Operace selhala :: Výjimka:\n" + exe);
             }
         }
 
@@ -387,7 +427,7 @@ namespace ZeroApp
         {
             if (ParametersPanel.Width < 836)
             {
-                RPCManager.UpdatePresence("Maturita Edition", "Nastavuje hru", startupTimestamp, 0, "infisync", "", "test", "");
+                RPCManager.UpdatePresence("44.RR Edition", "Nastavuje hru", startupTimestamp, 0, "infisync", "", "test", "");
                 CurrentUser.Content = USER;
 
                 var storyBoardIn = (Storyboard)this.Resources["Parameters_FadeIn"];
@@ -402,7 +442,7 @@ namespace ZeroApp
             }
             else
             {
-                RPCManager.UpdatePresence("Maturita Edition", "Je v launcheru", startupTimestamp, 0, "infisync", "", "test", "");
+                RPCManager.UpdatePresence("44.RR Edition", "Je v launcheru", startupTimestamp, 0, "infisync", "", "test", "");
                 var storyBoardIn = (Storyboard)this.Resources["Parameters_FadeOut"];
                 storyBoardIn.Begin();
             }
@@ -440,7 +480,7 @@ namespace ZeroApp
             }
             catch (Exception x)
             {
-                Trace.WriteLine("[GetAllRepositories] Task Failed :: Exception [" + x + "] thrown.");
+                Trace.WriteLine("[GetAllRepositories] Operace selhala :: Výjimka:\n" + x);
             }
         }
 
@@ -453,7 +493,7 @@ namespace ZeroApp
 
             Repos = new ObservableCollection<ZeroApp.Controls.Lists.RepositoryListItem>();
 
-            foreach (RepositoryObjectModel.Repository Repository in repos)
+            foreach (IndexObjectModel.Repository Repository in repos)
             {
                 Repos.Add(new ZeroApp.Controls.Lists.RepositoryListItem() { R_Miniature = @"pack://application:,,,/.zeroapp/media/box.png", R_Name = Repository.Modpacks.Modpack.Name, R_Source = Repository.Modpacks.Modpack.Source });
             }
@@ -522,7 +562,7 @@ namespace ZeroApp
                 if ( (Collection_Parameters[i].P_Active.IsChecked.Value) && parameters[i].Active != "true")
                 {
                     parameters[i].Active = "true";
-                    Trace.WriteLine("[" + Collection_Parameters[i].Name + "] Enabled by user.");
+                    Trace.WriteLine("[" + Collection_Parameters[i].Name + "] aktivováno uživatelem.");
                 }
 
                 // Disable those, that User disabled via GUI
@@ -530,7 +570,7 @@ namespace ZeroApp
                 if ( !(Collection_Parameters[i].P_Active.IsChecked.Value) && parameters[i].Active != "false")
                 {
                     parameters[i].Active = "false";
-                    Trace.WriteLine("[" + Collection_Parameters[i].Name + "] Disabled by user.");
+                    Trace.WriteLine("[" + Collection_Parameters[i].Name + "] deaktivováno uživatelem.");
                 }
 
                 // Active = parameters[i].Active, Key = parameters[i].Key, Name = parameters[i].Name, Value = parameters[i].Value
@@ -573,12 +613,13 @@ namespace ZeroApp
                 userConfig.Key[3].Value = "";
                 uc_Handler.SetKeys("User", userConfig);
                 CurrentUser.Content = "OFFLINE";
+                isAuthenticated = false;
 
                 Trace.WriteLine("[DeleteUserData] Vymazána uživatelská data v User.Parameters.xml");
             }
             catch (Exception x)
             {
-                Trace.WriteLine("[DeleteUserData] Task Failed :: " + x);
+                Trace.WriteLine("[DeleteUserData] Operace selhala :: " + x);
             }
         }
 

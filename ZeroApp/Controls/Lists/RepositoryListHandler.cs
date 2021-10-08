@@ -12,13 +12,13 @@ namespace ZeroApp.Controls.Lists
     {
         public readonly string path = AppDomain.CurrentDomain.BaseDirectory + @"Addons\";
 
-        public List<RepositoryObjectModel.Repository> GetAllRepositories(string path)
+        public List<IndexObjectModel.Repository> GetAllRepositories(string path)
         {
             try
             {
                 var m_Manager = new Mods();
                 
-                List<RepositoryObjectModel.Repository> repos = new List<RepositoryObjectModel.Repository>();
+                List<IndexObjectModel.Repository> repos = new List<IndexObjectModel.Repository>();
 
                 foreach (string subfolder in Directory.GetDirectories(path))
                 {
@@ -42,7 +42,7 @@ namespace ZeroApp.Controls.Lists
                 Trace.WriteLine("[GetAllRepositories] Task Failed :: Exception [" + e + "] thrown.");
             }
 
-            return new List<RepositoryObjectModel.Repository>();
+            return new List<IndexObjectModel.Repository>();
         }
     }
 }

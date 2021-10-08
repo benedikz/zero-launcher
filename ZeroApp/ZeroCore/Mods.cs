@@ -12,7 +12,7 @@ using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using static ZeroApp.RepositoryObjectModel;
+using static ZeroApp.IndexObjectModel;
 
 namespace ZeroApp
 {
@@ -150,7 +150,7 @@ namespace ZeroApp
         /// in the Repository already and deletes them.
         /// </summary>
         /// <param name="pack_name"></param>
-        public void GetAllFiles(string dir, RepositoryObjectModel.Repository repo)
+        public void GetAllFiles(string dir, IndexObjectModel.Repository repo)
         {
             try
             {
@@ -178,7 +178,7 @@ namespace ZeroApp
             }
         }
 
-        public List<string> GetFileExcludes(RepositoryObjectModel.Repository currentRepo)
+        public List<string> GetFileExcludes(IndexObjectModel.Repository currentRepo)
         {
             List<string> files = new List<string>();
 
@@ -206,7 +206,7 @@ namespace ZeroApp
             }
         }
 
-        public List<string> GetDirectoryExcludes(RepositoryObjectModel.Repository currentRepo)
+        public List<string> GetDirectoryExcludes(IndexObjectModel.Repository currentRepo)
         {
             List<string> directories = new List<string>();
 
@@ -229,47 +229,11 @@ namespace ZeroApp
         }
 
         /// <summary>
-        /// LoadModpack processes an index.xml of specific pack, from which it downloads any mod within that index.
-        /// </summary>
-        /// <param name="pack_name"></param>
-        /*
-        public void LoadModpack(string pack_name)
-        {
-            var main = new LauncherWindow();
-            Repository repo = GetModpack(pack_name);
-
-            // Get all modpacks in ./Addons directory
-            string[] packs = Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + @"Addons\" + pack_name);
-            int packs_count = packs.Length;
-
-            // Check if every addon in index.xml is in pack directory
-
-            for (int i = 0; i < repo.Addons.Addon.Count; i++)
-            {
-                bool exists = packs.Any(s => s.Contains(repo.Addons.Addon[i].Name));
-                if (exists)
-                {
-                    Trace.WriteLine(repo.Addons.Addon[i].Name + " <- Existuje");
-                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.MainProgressBar.Value = i));
-                }
-                else
-                {
-                    Trace.WriteLine(repo.Addons.Addon[i].Name + " <- Neexistuje");
-
-                    // Download this mod from URL in index.xml
-                    DownloadMod(repo, i);
-                    Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.MainProgressBar.Value = i));
-                }
-            }
-        }
-        */
-
-        /// <summary>
         /// Reads index.xml of specified pack, then creates and returns instance of Repository object
         /// </summary>
         /// <param name="pack_name"></param>
         /// <returns></returns>
-        public RepositoryObjectModel.Repository GetModpack(string pack_name)
+        public IndexObjectModel.Repository GetModpack(string pack_name)
         {
             var f_Synchronization = new FileSynchronization();
 
@@ -278,7 +242,7 @@ namespace ZeroApp
 
             // Process string into data
             var xmlSerializer = new XMLSerialization();
-            // using ZeroApp.RepositoryObjectModel;
+            // using ZeroApp.IndexObjectModel;
             Repository repo = xmlSerializer.Deserialize<Repository>(l_Index);
 
             return repo;
@@ -303,7 +267,6 @@ namespace ZeroApp
             // Download index.xml
             Web.DownloadFile(url, AppDomain.CurrentDomain.BaseDirectory + @"Addons\" + repo.Modpacks.Modpack.ID + @"\index.xml");
             Trace.WriteLine("[DownloadRepository] Repo downloaded from: " + url);
-
         }
 
         /// <summary>
@@ -311,7 +274,7 @@ namespace ZeroApp
         /// </summary>
         /// <param name="repository">Instance name of repository</param>
         /// <param name="index">Int32 index is used as mod's ID number</param>
-        public void DownloadMod(RepositoryObjectModel.Repository repository, int index)
+        public void DownloadMod(IndexObjectModel.Repository repository, int index)
         {
             string name = repository.Addons.Addon[index].Name; 
 
@@ -337,7 +300,7 @@ namespace ZeroApp
         /// <param name="repository">Object Repository (serialized index.xml)</param>
         /// <param name="addon_index">Index number of addon</param>
         /// <param name="file_index">Index number of file inside an addon[index]</param>
-        public void DownloadFile(RepositoryObjectModel.Repository repository, int addon_index, int file_index)
+        public void DownloadFile(IndexObjectModel.Repository repository, int addon_index, int file_index)
         {
             try
             {

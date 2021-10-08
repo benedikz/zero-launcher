@@ -46,7 +46,7 @@ namespace ZeroApp.Windows.Dialogs
         {
             string gamedir = Input_ApplicationLocation.Text;
             Trace.WriteLine(Input_ApplicationLocation.Text);
-            if ((gamedir.Length > 0) && (gamedir.EndsWith("arma3.exe") || gamedir.EndsWith("arma3_x64.exe")))
+            if ((gamedir.Length > 0) && (gamedir.EndsWith("arma3.exe") || gamedir.EndsWith("arma3_x64.exe")) || gamedir.EndsWith("arma3battleye.exe"))
             {
                 var uc_Handler = new ZeroCore.UserConfig();
                 SaveUserConfig("User", gamedir);
